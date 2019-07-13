@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "functions-framework --target=helloWorld"
+    "start": "functions-framework --target=helloWorld",
+    "develop": "nodemon --exec npm run start"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,11 @@
   "homepage": "https://github.com/vinaymavi/mcrc-repocommit#readme",
   "dependencies": {
     "@google-cloud/functions-framework": "^1.1.1",
-    "nodegit": "^0.24.3"
+    "isomorphic-git": "^0.55.5",
+    "rimraf": "^2.6.3",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
