@@ -5,10 +5,18 @@ const rimraf = require("rimraf");
 git.plugins.set("fs", fs);
 const path = require("path");
 class Git {
-  constructor(source_repo, target_repo, repo_path) {
+  constructor(
+    source_repo,
+    target_repo,
+    repo_path,
+    access_token_source,
+    access_token_dest
+  ) {
     this.source_repo = source_repo;
     this.target_repo = target_repo;
     this.repo_path = path.join("/tmp", repo_path);
+    this.access_token_source = access_token_source;
+    this.access_token_dest = access_token_dest;
     console.log("REPO PATH = ", this.repo_path);
   }
   init() {
@@ -90,7 +98,7 @@ class Git {
               "refs/heads/master",
               "refs/heads/master",
               "destination",
-              "baa089d16ecffe8aff35e2b1b9e450de5d1296d3"
+              this.access_token_dest
             );
           })
           .then(resp => {

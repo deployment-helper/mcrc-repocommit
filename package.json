@@ -4,7 +4,7 @@
   "description": "Microservice is used to do a first commit to new repository from a template.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "functions-framework --target=helloWorld",
     "develop": "nodemon --exec npm run start"
   },
@@ -21,11 +21,14 @@
   "homepage": "https://github.com/vinaymavi/mcrc-repocommit#readme",
   "dependencies": {
     "@google-cloud/functions-framework": "^1.1.1",
+    "dotenv": "^8.0.0",
     "isomorphic-git": "^0.55.5",
     "rimraf": "^2.6.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
+    "lambda-tester": "^3.6.0",
     "nodemon": "^1.19.1"
   }
 }
