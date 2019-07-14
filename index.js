@@ -14,7 +14,7 @@ const message_format = {
   }
 };
 
-exports.handler = async (req, resp) => {
+exports.mcrc_repo_first_commit = async (req, resp) => {
   console.log(req.body);
   // TODO error hanalding required
   const respJson = JSON.parse(JSON.stringify(message_format));

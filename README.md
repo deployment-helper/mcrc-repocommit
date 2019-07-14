@@ -7,7 +7,7 @@ Nodejs10
 
 
 # Deploy to Google Cloud
-`gcloud functions deploy handler --runtime nodejs10 --trigger-http --project multi-cloud-resource-creation`
+`gcloud functions deploy mcrc_repo_first_commit --runtime nodejs10 --trigger-http --project multi-cloud-resource-creation`
 
 # Deploy to AWS Lambda 
 
