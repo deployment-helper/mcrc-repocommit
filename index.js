@@ -14,24 +14,26 @@ const message_format = {
   }
 };
 
-exports.handler = async event => {
-  console.log(event.body);
+exports.handler = async (req, resp) => {
+  console.log(req.body);
   // TODO error hanalding required
-  const resp = JSON.parse(JSON.stringify(message_format));
+  const respJson = JSON.parse(JSON.stringify(message_format));
   const git = new Git(
-    event.body.source,
-    event.body.destination,
+    req.body.source,
+    req.body.destination,
     uuid1(),
     GIT_HUB_ACCESS_TOKEN,
     GIT_HUB_ACCESS_TOKEN
   );
   try {
     const data = await git.push_to_app();
-    resp.body = JSON.stringify(createSuccessResp("First commit pushed", data));
-    return resp;
+    respJson.body = JSON.stringify(
+      createSuccessResp("First commit pushed", data)
+    );
+    return resp.send(respJson);
   } catch (error) {
-    resp.body = JSON.stringify(createErrResp("Error", error));
-    return resp;
+    respJson.body = JSON.stringify(createErrResp("Error", error));
+    return resp.send(respJson);
   }
 };
 
