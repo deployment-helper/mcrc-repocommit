@@ -18,8 +18,8 @@ exports.mcrc_repo_first_commit = async (req, resp) => {
   // TODO error hanalding required
   const respJson = JSON.parse(JSON.stringify(message_format));
   const git = new Git(
-    req.body.source,
-    req.body.destination,
+    req.body.source_repo_url,
+    req.body.destination_repo_url,
     uuid1(),
     req.body.source_access_token,
     req.body.destination_access_token,
