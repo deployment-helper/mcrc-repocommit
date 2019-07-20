@@ -2,7 +2,6 @@ require("dotenv").config();
 const Git = require("./src/git");
 const uuid1 = require("uuid/v1");
 
-const GIT_HUB_ACCESS_TOKEN = process.env.GIT_HUB_ACCESS_TOKEN;
 const message_format = {
   statusCode: 200,
   isBase64Encoded: false,
@@ -22,8 +21,8 @@ exports.mcrc_repo_first_commit = async (req, resp) => {
     req.body.source,
     req.body.destination,
     uuid1(),
-    GIT_HUB_ACCESS_TOKEN,
-    GIT_HUB_ACCESS_TOKEN
+    req.body.source_access_token,
+    req.body.destination_access_token,
   );
   try {
     const data = await git.push_to_app();
