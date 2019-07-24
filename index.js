@@ -26,12 +26,10 @@ exports.mcrc_repo_first_commit = async (req, resp) => {
   );
   try {
     const data = await git.push_to_app();
-    respJson.body = JSON.stringify(
-      createSuccessResp("First commit pushed", data)
-    );
+    respJson.body = createSuccessResp("First commit pushed", data)
     return resp.send(respJson);
   } catch (error) {
-    respJson.body = JSON.stringify(createErrResp("Error", error));
+    respJson.body = createErrResp("Error", error);
     return resp.send(respJson);
   }
 };

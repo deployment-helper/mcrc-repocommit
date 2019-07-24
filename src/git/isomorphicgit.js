@@ -31,11 +31,12 @@ class Git {
     console.log("CLENAUP");
     return rimraf.sync(this.repo_path);
   }
-  clone(repo_url) {
+  clone(repo_url,token) {
     console.log("CLONING START");
     return git.clone({
       dir: this.repo_path,
-      url: repo_url
+      url: repo_url,
+      token
     });
   }
   add_remote(remote_name, remote_url) {
@@ -79,7 +80,7 @@ class Git {
     return new Promise((resolve, reject) => {
       try {
         console.log("PUSH APP START");
-        this.clone(this.source_repo)
+        this.clone(this.source_repo,this.access_token_source)
           .then(() => {
             this.removedotgit();
             return this.init();
