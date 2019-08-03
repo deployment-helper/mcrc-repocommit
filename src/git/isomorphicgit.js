@@ -1,7 +1,7 @@
 const git = require("isomorphic-git");
 const fs = require("fs");
 const rimraf = require("rimraf");
-
+const PrepareRepo = require("../prepare_repo");
 git.plugins.set("fs", fs);
 const path = require("path");
 class Git {
@@ -10,14 +10,17 @@ class Git {
     target_repo,
     repo_path,
     access_token_source,
-    access_token_dest
+    access_token_dest,
+    context
   ) {
     this.source_repo = source_repo;
     this.target_repo = target_repo;
-    this.repo_path = path.join("/tmp", repo_path);
+    this.repo_path = repo_path;
     this.access_token_source = access_token_source;
     this.access_token_dest = access_token_dest;
     console.log("REPO PATH = ", this.repo_path);
+    // TODO: read meta data file name from Env.
+    this.prepare_repo = new PrepareRepo(repo_path, "mcrc.json", context);
   }
   init() {
     console.log("INIT");
@@ -31,7 +34,7 @@ class Git {
     console.log("CLENAUP");
     return rimraf.sync(this.repo_path);
   }
-  clone(repo_url,token) {
+  clone(repo_url, token) {
     console.log("CLONING START");
     return git.clone({
       dir: this.repo_path,
@@ -80,10 +83,13 @@ class Git {
     return new Promise((resolve, reject) => {
       try {
         console.log("PUSH APP START");
-        this.clone(this.source_repo,this.access_token_source)
+        this.clone(this.source_repo, this.access_token_source)
           .then(() => {
             this.removedotgit();
             return this.init();
+          })
+          .then(() => {
+            return this.prepare_repo.prepare();
           })
           .then(() => {
             return this.add();
